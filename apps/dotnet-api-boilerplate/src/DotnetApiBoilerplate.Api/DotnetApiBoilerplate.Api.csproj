@@ -1,0 +1,25 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <!--
+    API layer: HTTP host and composition root.
+    Dependency rule: references Application and Infrastructure. Contains no business logic.
+  -->
+
+  <ItemGroup>
+    <ProjectReference Include="..\DotnetApiBoilerplate.Application\DotnetApiBoilerplate.Application.csproj"/>
+    <ProjectReference Include="..\DotnetApiBoilerplate.Infrastructure\DotnetApiBoilerplate.Infrastructure.csproj"/>
+  </ItemGroup>
+
+  <ItemGroup>
+    <!-- Lets the unit-test project exercise internal types (e.g. the exception handler), and the
+         integration test project resolve the generated internal Program entry point. -->
+    <InternalsVisibleTo Include="DotnetApiBoilerplate.Api.Tests"/>
+    <InternalsVisibleTo Include="DotnetApiBoilerplate.IntegrationTests"/>
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.OpenApi"/>
+    <PackageReference Include="Scalar.AspNetCore"/>
+  </ItemGroup>
+
+</Project>

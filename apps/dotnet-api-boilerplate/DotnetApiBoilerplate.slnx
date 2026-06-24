@@ -1,0 +1,15 @@
+<Solution>
+    <Folder Name="/src/">
+        <Project Path="src/DotnetApiBoilerplate.Api/DotnetApiBoilerplate.Api.csproj"/>
+        <Project Path="src/DotnetApiBoilerplate.Application/DotnetApiBoilerplate.Application.csproj"/>
+        <Project Path="src/DotnetApiBoilerplate.Domain/DotnetApiBoilerplate.Domain.csproj"/>
+        <Project Path="src/DotnetApiBoilerplate.Infrastructure/DotnetApiBoilerplate.Infrastructure.csproj"/>
+    </Folder>
+    <Folder Name="/tests/">
+        <Project Path="tests/DotnetApiBoilerplate.Api.Tests/DotnetApiBoilerplate.Api.Tests.csproj"/>
+        <Project Path="tests/DotnetApiBoilerplate.Application.Tests/DotnetApiBoilerplate.Application.Tests.csproj"/>
+        <Project Path="tests/DotnetApiBoilerplate.Domain.Tests/DotnetApiBoilerplate.Domain.Tests.csproj"/>
+        <Project Path="tests/DotnetApiBoilerplate.Infrastructure.Tests/DotnetApiBoilerplate.Infrastructure.Tests.csproj"/>
+        <Project Path="tests/DotnetApiBoilerplate.IntegrationTests/DotnetApiBoilerplate.IntegrationTests.csproj"/>
+    </Folder>
+</Solution>

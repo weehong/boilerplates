@@ -1,0 +1,9 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <!--
+    Domain layer: the heart of the application.
+    Dependency rule: references NO other project and NO infrastructure packages
+    (no EF Core, ASP.NET Core, MediatR, FluentValidation, ...). Pure .NET only.
+  -->
+
+</Project>
