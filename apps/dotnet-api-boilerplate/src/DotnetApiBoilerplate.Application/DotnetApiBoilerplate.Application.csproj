@@ -1,0 +1,25 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <!--
+    Application layer: use cases (commands/queries), orchestration, validation.
+    Dependency rule: references Domain ONLY. No EF Core, no ASP.NET Core.
+  -->
+
+  <ItemGroup>
+    <ProjectReference Include="..\DotnetApiBoilerplate.Domain\DotnetApiBoilerplate.Domain.csproj"/>
+  </ItemGroup>
+
+  <ItemGroup>
+    <!-- Lets the unit-test project exercise internal handlers without making them public. -->
+    <InternalsVisibleTo Include="DotnetApiBoilerplate.Application.Tests"/>
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="MediatR"/>
+    <PackageReference Include="FluentValidation"/>
+    <PackageReference Include="FluentValidation.DependencyInjectionExtensions"/>
+    <PackageReference Include="Microsoft.Extensions.Logging.Abstractions"/>
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions"/>
+  </ItemGroup>
+
+</Project>

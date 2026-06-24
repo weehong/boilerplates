@@ -1,0 +1,31 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <!--
+    Infrastructure layer: persistence and other external concerns.
+    Dependency rule: references Application and Domain. The API depends on this project
+    only to compose the container at startup.
+  -->
+
+  <ItemGroup>
+    <ProjectReference Include="..\DotnetApiBoilerplate.Application\DotnetApiBoilerplate.Application.csproj"/>
+    <ProjectReference Include="..\DotnetApiBoilerplate.Domain\DotnetApiBoilerplate.Domain.csproj"/>
+  </ItemGroup>
+
+  <ItemGroup>
+    <InternalsVisibleTo Include="DotnetApiBoilerplate.Infrastructure.Tests"/>
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.EntityFrameworkCore"/>
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Relational"/>
+    <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL"/>
+    <PackageReference Include="Microsoft.Extensions.Diagnostics.HealthChecks.EntityFrameworkCore"/>
+    <PackageReference Include="Microsoft.Extensions.Configuration.Abstractions"/>
+    <!-- Design package enables `dotnet ef` migrations against this project. -->
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Design">
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+      <PrivateAssets>all</PrivateAssets>
+    </PackageReference>
+  </ItemGroup>
+
+</Project>

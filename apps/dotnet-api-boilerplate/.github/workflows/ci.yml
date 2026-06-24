@@ -1,0 +1,35 @@
+name: CI
+
+on:
+  push:
+    branches:
+      - "**"
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  dotnet:
+    name: Restore, Build, Test
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          global-json-file: global.json
+
+      - name: Restore
+        run: dotnet restore DotnetApiBoilerplate.slnx
+
+      - name: Format check
+        run: dotnet format DotnetApiBoilerplate.slnx --verify-no-changes --no-restore
+
+      - name: Build
+        run: dotnet build DotnetApiBoilerplate.slnx -c Release --no-restore
+
+      - name: Test
+        run: dotnet test DotnetApiBoilerplate.slnx -c Release --no-build
