@@ -7,6 +7,7 @@ This repository is a monorepo for reusable boilerplates.
 - `apps/vite-react-boilerplate`: imported from `https://github.com/weehong/vite-react-boilerplate`
 - `apps/nextjs-boilerplate`: imported from `https://github.com/weehong/nextjs-boilerplate`
 - `apps/dotnet-api-boilerplate`: adapted from `https://github.com/upmatches/api_v2/commit/7b18471d65c8526311a144a44cb4ab61d1eaab0b`
+- `apps/spring-boot-boilerplate`: adapted from the local `upmatches-dev/upmatches` Spring Boot project
 
 ## Maintenance Rules
 

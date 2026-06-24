@@ -1,0 +1,12 @@
+-- Baseline migration
+-- Add your initial schema here
+--
+-- Example:
+-- CREATE TABLE IF NOT EXISTS example (
+--     id BIGSERIAL PRIMARY KEY,
+--     uuid UUID NOT NULL DEFAULT gen_random_uuid() UNIQUE,
+--     name VARCHAR(255) NOT NULL,
+--     created_at TIMESTAMP NOT NULL DEFAULT NOW(),
+--     updated_at TIMESTAMP NOT NULL DEFAULT NOW(),
+--     deleted_at TIMESTAMP
+-- );

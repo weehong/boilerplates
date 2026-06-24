@@ -1,0 +1,92 @@
+root = true
+
+[*]
+charset = utf-8
+end_of_line = lf
+indent_style = space
+indent_size = 4
+insert_final_newline = true
+trim_trailing_whitespace = true
+
+[*.{yml,yaml}]
+indent_size = 2
+
+[*.{json,json5}]
+indent_size = 2
+
+[*.md]
+trim_trailing_whitespace = false
+
+[*.java]
+indent_size = 4
+ij_continuation_indent_size = 4
+
+# Imports — never use wildcard imports
+ij_java_class_count_to_use_import_on_demand = 999
+ij_java_names_count_to_use_import_on_demand = 999
+ij_java_use_fq_class_names = false
+
+# Blank lines
+ij_java_blank_lines_after_class_header = 1
+ij_java_blank_lines_before_class_end = 1
+ij_java_blank_lines_around_initializer = 0
+
+# Alignment
+ij_java_align_multiline_chained_methods = true
+ij_java_align_multiline_parameters_in_calls = true
+ij_java_align_multiline_binary_operation = true
+ij_java_align_multiline_assignment = true
+ij_java_align_multiline_ternary_operation = true
+ij_java_align_multiline_throws_list = true
+ij_java_align_multiline_extends_list = true
+ij_java_align_multiline_parenthesized_expression = true
+ij_java_align_multiline_array_initializer_expression = true
+
+# Wrapping (5 = wrap if long, 2 = wrap always, 1 = wrap if long or first)
+ij_java_call_parameters_wrap = wrap_as_needed
+ij_java_prefer_parameters_wrap = true
+ij_java_method_parameters_wrap = wrap_as_needed
+ij_java_resource_list_wrap = wrap_as_needed
+ij_java_extends_list_wrap = wrap_as_needed
+ij_java_throws_list_wrap = wrap_if_long
+ij_java_extends_keyword_wrap = wrap_if_long
+ij_java_throws_keyword_wrap = wrap_if_long
+ij_java_method_call_chain_wrap = wrap_as_needed
+ij_java_ternary_operation_wrap = wrap_always
+ij_java_ternary_operation_signs_on_next_line = true
+ij_java_array_initializer_wrap = wrap_as_needed
+ij_java_assert_statement_wrap = wrap_as_needed
+ij_java_switch_expressions_wrap = wrap_as_needed
+ij_java_assert_statement_colon_on_next_line = true
+ij_java_multi_catch_types_wrap = wrap_as_needed
+ij_java_method_annotation_wrap = wrap_as_needed
+ij_java_class_annotation_wrap = wrap_as_needed
+ij_java_field_annotation_wrap = do_not_wrap
+ij_java_enum_constants_wrap = wrap_as_needed
+ij_java_wrap_long_lines = true
+
+# Braces — always force braces
+ij_java_if_brace_force = always
+ij_java_dowhile_brace_force = always
+ij_java_while_brace_force = always
+ij_java_for_brace_force = always
+
+# Keep simple constructs on one line
+ij_java_keep_simple_lambdas_in_one_line = true
+ij_java_keep_simple_classes_in_one_line = true
+
+# Spaces
+ij_java_space_within_array_initializer_braces = true
+ij_java_space_within_empty_array_initializer_braces = true
+
+[*.xml]
+indent_size = 4
+
+[Makefile]
+indent_style = tab
+
+[*.{sh,bash}]
+indent_size = 2
+
+[*.cmd]
+end_of_line = crlf

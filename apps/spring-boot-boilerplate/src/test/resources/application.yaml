@@ -1,0 +1,49 @@
+spring:
+  application:
+    name: SpringBootBoilerplate
+
+  autoconfigure:
+    exclude:
+      - org.springframework.boot.data.redis.autoconfigure.DataRedisAutoConfiguration
+      - org.springframework.boot.data.redis.autoconfigure.RedisRepositoriesAutoConfiguration
+
+  datasource:
+    url: jdbc:h2:mem:testdb;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE
+    username: sa
+    password:
+    driver-class-name: org.h2.Driver
+
+  jpa:
+    show-sql: false
+    hibernate:
+      ddl-auto: create-drop
+
+  flyway:
+    enabled: false
+
+  cache:
+    type: none
+
+app:
+  database:
+    enabled: false
+
+  logging:
+    aspect:
+      enabled: false
+
+  cors:
+    allowed-origins: http://localhost:3000
+
+springdoc:
+  api-docs:
+    enabled: true
+    path: /v3/api-docs
+
+  swagger-ui:
+    enabled: true
+    path: /swagger-ui.html
+
+management:
+  tracing:
+    enabled: false

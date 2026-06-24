@@ -1,0 +1,36 @@
+spring:
+  jpa:
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+
+  flyway:
+    enabled: true
+
+  cache:
+    type: none
+
+app:
+  logging:
+    aspect:
+      slow-execution-threshold-ms: 500
+
+springdoc:
+  api-docs:
+    enabled: true
+  swagger-ui:
+    enabled: true
+
+management:
+  tracing:
+    enabled: false
+
+logging:
+  level:
+    root: INFO
+    com.example.boilerplate: DEBUG
+    org.hibernate.SQL: DEBUG
+    # BasicBinder at DEBUG does NOT log bound parameter values. Raise to TRACE only in
+    # local dev when you must inspect SQL parameters (sensitive) — never in production profiles.
+    org.hibernate.type.descriptor.sql.BasicBinder: DEBUG

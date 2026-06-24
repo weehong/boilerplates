@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ruleset xmlns="http://mojo.codehaus.org/versions-maven-plugin/rule/2.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://mojo.codehaus.org/versions-maven-plugin/rule/2.0.0
+                             https://www.mojohaus.org/versions-maven-plugin/xsd/rule-2.0.0.xsd"
+         comparisonMethod="maven">
+    <rules>
+        <!-- Ignore alpha, beta, RC, milestone, and snapshot versions -->
+        <rule groupId="*" artifactId="*">
+            <ignoreVersions>
+                <ignoreVersion type="regex">.*[-.](?i)(alpha|beta|rc|cr|milestone|m\d+|snap|preview).*</ignoreVersion>
+            </ignoreVersions>
+        </rule>
+        <!-- Pin Spring Boot to 4.x — do not suggest 5.x until deliberate upgrade -->
+        <rule groupId="org.springframework.boot">
+            <ignoreVersions>
+                <ignoreVersion type="regex">^[5-9]\..*</ignoreVersion>
+            </ignoreVersions>
+        </rule>
+        <!-- Pin Spring Security to 7.x range (aligned with Spring Boot 4.x) -->
+        <rule groupId="org.springframework.security">
+            <ignoreVersions>
+                <ignoreVersion type="regex">^[8-9]\..*</ignoreVersion>
+            </ignoreVersions>
+        </rule>
+    </rules>
+</ruleset>
