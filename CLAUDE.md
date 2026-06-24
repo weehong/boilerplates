@@ -5,6 +5,7 @@ This repository is a monorepo for reusable boilerplates.
 ## Repository Layout
 
 - `apps/vite-react-boilerplate`: imported from `https://github.com/weehong/vite-react-boilerplate`
+- `apps/nextjs-boilerplate`: imported from `https://github.com/weehong/nextjs-boilerplate`
 
 ## Maintenance Rules
 
