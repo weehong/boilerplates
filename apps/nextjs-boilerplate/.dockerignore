@@ -1,0 +1,16 @@
+.git
+.github
+.vscode
+.dockerignore
+.gitignore
+.next
+node_modules
+npm-debug.log
+Dockerfile
+README.md
+coverage
+playwright-report
+test-results
+storybook-static
+.env*
+!.env.example

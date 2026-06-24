@@ -7,6 +7,7 @@ Monorepo for reusable application boilerplates.
 | Boilerplate | Path | Source | Notes |
 | --- | --- | --- | --- |
 | Vite React Boilerplate | `apps/vite-react-boilerplate` | <https://github.com/weehong/vite-react-boilerplate> | Vite, React, TypeScript, Storybook, Playwright, Vitest, Tailwind CSS, and pnpm workspace setup. |
+| Next.js Boilerplate | `apps/nextjs-boilerplate` | <https://github.com/weehong/nextjs-boilerplate> | Production Next.js boilerplate with TypeScript, Storybook, Playwright, Vitest, structured metadata, and npm lockfile. |
 
 ## Working With A Boilerplate
 
@@ -18,7 +19,14 @@ pnpm install
 pnpm dev
 ```
 
+```sh
+cd apps/nextjs-boilerplate
+npm install
+npm run dev
+```
+
 ## Import History
 
 - `chore: initialize repository` created the empty repository with the GitHub remote.
 - `feat: add vite react app scaffold` imported `weehong/vite-react-boilerplate`.
+- `feat: add production nextjs boilerplate` imported `weehong/nextjs-boilerplate`.
