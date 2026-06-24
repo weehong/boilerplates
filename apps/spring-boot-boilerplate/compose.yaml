@@ -1,0 +1,87 @@
+services:
+  api:
+    container_name: ${PROJECT_NAME:-spring_boot_boilerplate}-app
+    image: ${DOCKER_IMAGE:-${PROJECT_NAME:-spring_boot_boilerplate}-api}:${IMAGE_TAG:-latest}
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "${SERVER_PORT:-8080}:8080"
+    environment:
+      # API configuration
+      SPRING_PROFILES_ACTIVE: ${SPRING_PROFILES_ACTIVE:-default}
+      CORS_ALLOWED_ORIGINS: ${CORS_ALLOWED_ORIGINS:-}
+
+      # Database
+      POSTGRES_DB_HOST: postgres
+      POSTGRES_DB_PORT: 5432
+      POSTGRES_DB_NAME: ${POSTGRES_DB_NAME:-${PROJECT_NAME:-spring_boot_boilerplate}}
+      POSTGRES_DB_USER: ${POSTGRES_DB_USER:-postgres}
+      POSTGRES_DB_PASS: ${POSTGRES_DB_PASS:-change-me}
+      DB_POOL_SIZE: ${DB_POOL_SIZE:-10}
+      DB_POOL_MIN_IDLE: ${DB_POOL_MIN_IDLE:-2}
+      DB_IDLE_TIMEOUT: ${DB_IDLE_TIMEOUT:-300000}
+      DB_MAX_LIFETIME: ${DB_MAX_LIFETIME:-1800000}
+      DB_CONNECTION_TIMEOUT: ${DB_CONNECTION_TIMEOUT:-30000}
+      DB_LEAK_DETECTION: ${DB_LEAK_DETECTION:-60000}
+      FLYWAY_ENABLED: ${FLYWAY_ENABLED:-true}
+      SHOW_SQL_FLAG: ${SHOW_SQL_FLAG:-false}
+
+      # Redis
+      REDIS_HOST: redis
+      REDIS_PORT: 6379
+      REDIS_USERNAME: ${REDIS_USERNAME:-}
+      REDIS_PASSWORD: ${REDIS_PASSWORD:-}
+      CACHE_TYPE: ${CACHE_TYPE:-none}
+
+      # Swagger / OpenAPI
+      SWAGGER_ENABLED: ${SWAGGER_ENABLED:-false}
+
+      # Observability
+      TRACING_ENABLED: ${TRACING_ENABLED:-false}
+      TRACING_SAMPLING_PROBABILITY: ${TRACING_SAMPLING_PROBABILITY:-1.0}
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+
+  postgres:
+    container_name: ${PROJECT_NAME:-spring_boot_boilerplate}-postgres
+    image: postgres:17-alpine
+    ports:
+      - "${POSTGRES_PORT:-5432}:5432"
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB_NAME:-${PROJECT_NAME:-spring_boot_boilerplate}}
+      POSTGRES_USER: ${POSTGRES_DB_USER:-postgres}
+      POSTGRES_PASSWORD: ${POSTGRES_DB_PASS:-change-me}
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_DB_USER:-postgres}"]
+      interval: 5s
+      timeout: 3s
+      retries: 5
+
+  redis:
+    container_name: ${PROJECT_NAME:-spring_boot_boilerplate}-redis
+    image: redis:7-alpine
+    command: >
+      sh -c 'if [ -n "$${REDIS_PASSWORD:-}" ];
+      then redis-server --requirepass "$${REDIS_PASSWORD}";
+      else redis-server; fi'
+    environment:
+      REDIS_PASSWORD: ${REDIS_PASSWORD:-}
+    ports:
+      - "${REDIS_PORT:-6379}:6379"
+    volumes:
+      - redis_data:/data
+    healthcheck:
+      test: ["CMD-SHELL", "redis-cli $${REDIS_PASSWORD:+-a \"$$REDIS_PASSWORD\"} ping | grep -q PONG"]
+      interval: 5s
+      timeout: 3s
+      retries: 5
+
+volumes:
+  postgres_data:
+  redis_data:

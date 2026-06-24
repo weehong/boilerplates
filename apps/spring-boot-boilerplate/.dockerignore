@@ -1,0 +1,14 @@
+.git
+.github
+.idea
+.vscode
+*.iml
+*.iws
+*.ipr
+target/
+logs/
+.env*
+!.env*.example
+README.md
+HELP.md
+Makefile
