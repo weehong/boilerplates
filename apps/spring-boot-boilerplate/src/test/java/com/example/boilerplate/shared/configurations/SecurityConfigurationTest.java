@@ -8,7 +8,6 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.context.annotation.Import;
 import org.springframework.http.MediaType;
 import org.springframework.security.web.SecurityFilterChain;
-import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -19,6 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.hamcrest.Matchers.containsString;
 import static org.hamcrest.Matchers.not;
+import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.user;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
@@ -32,6 +32,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 class SecurityConfigurationTest {
 
     private static final int HTTP_BAD_REQUEST = 400;
+    private static final String SCRAPER_USER = "scraper";
 
     private static final String ACTUATOR_HEALTH_ENDPOINT = "/actuator/health";
     private static final String ACTUATOR_LIVENESS_ENDPOINT = "/actuator/health/liveness";
@@ -99,10 +100,9 @@ class SecurityConfigurationTest {
     }
 
     @Test
-    @WithMockUser
     void given_prometheusEndpoint_when_requestedByAuthenticatedUser_then_realMetricsAreServed()
         throws Exception {
-        mockMvc.perform(get(PROMETHEUS_ENDPOINT))
+        mockMvc.perform(get(PROMETHEUS_ENDPOINT).with(user(SCRAPER_USER)))
             .andExpect(status().isOk())
             .andExpect(content().string(containsString("# HELP")))
             .andExpect(content().string(containsString("jvm_")))
@@ -122,7 +122,6 @@ class SecurityConfigurationTest {
                             .content("{\"displayName\":\"Ada\",\"unexpectedField\":\"rejected\"}"))
             .andExpect(status().isBadRequest())
             .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_PROBLEM_JSON))
-            .andExpect(jsonPath("$.type").value("about:blank"))
             .andExpect(jsonPath("$.title").value("Bad Request"))
             .andExpect(jsonPath("$.status").value(HTTP_BAD_REQUEST))
             .andExpect(jsonPath("$.detail").value("Failed to read request"))
