@@ -70,7 +70,7 @@ import static com.example.boilerplate.shared.constants.ServiceOperationExecutorC
 import static com.example.boilerplate.shared.constants.ServiceOperationExecutorConstant.LOG_UNEXPECTED_EXCEPTION;
 import static com.example.boilerplate.shared.constants.ServiceOperationExecutorConstant.LOG_UNHANDLED_DATABASE_EXCEPTION;
 import static com.example.boilerplate.shared.constants.ServiceOperationExecutorConstant.MAX_RESPONSE_BODY_SIZE;
-import static com.example.boilerplate.shared.constants.ServiceOperationExecutorConstant.MDC_REQUEST_ID_KEY;
+import static com.example.boilerplate.shared.constants.ServiceOperationExecutorConstant.MDC_TRACE_ID_KEY;
 import static com.example.boilerplate.shared.constants.ServiceOperationExecutorConstant.OPERATION_SUPPLIER_NOT_NULL;
 import static com.example.boilerplate.shared.constants.ServiceOperationExecutorConstant.OPERATION_TYPE_NOT_NULL;
 import static com.example.boilerplate.shared.constants.ServiceOperationExecutorConstant.PERSISTENCE_ERROR;
@@ -175,7 +175,7 @@ public final class ServiceOperationExecutor {
             throw exceptionFactory.create(UNEXPECTED_ERROR_DURING + operationType.name().toLowerCase(), ex);
         } finally {
             if (traceContext.created()) {
-                MDC.remove(MDC_REQUEST_ID_KEY);
+                MDC.remove(MDC_TRACE_ID_KEY);
             }
         }
     }
@@ -201,15 +201,15 @@ public final class ServiceOperationExecutor {
     }
 
     private static TraceContext getOrCreateTraceId() {
-        String existingTraceId = MDC.get(MDC_REQUEST_ID_KEY);
+        String existingTraceId = MDC.get(MDC_TRACE_ID_KEY);
 
         if (existingTraceId != null && !existingTraceId.isBlank()) {
 
             return new TraceContext(existingTraceId, false);
         }
 
-        String newTraceId = randomUUID().toString();
-        MDC.put(MDC_REQUEST_ID_KEY, newTraceId);
+        String newTraceId = randomUUID().toString().replace("-", "");
+        MDC.put(MDC_TRACE_ID_KEY, newTraceId);
 
         return new TraceContext(newTraceId, true);
     }

@@ -24,7 +24,6 @@ springdoc:
 
 management:
   tracing:
-    enabled: true
     sampling:
       probability: ${TRACING_SAMPLING_PROBABILITY:0.1}
 

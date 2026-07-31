@@ -14,7 +14,7 @@ Guidance for working in this Spring Boot boilerplate.
 - Study nearby package patterns before editing.
 - Use wrapper types (`Integer`, `Long`, `Boolean`) instead of primitives in records, requests, and responses.
 - Do not create `dtos` packages; use `requests`, `responses`, or `models`.
-- Keep JSON and query parameter contracts as `snake_case`; Java records may remain `camelCase` and rely on Jackson config.
+- Keep JSON contracts aligned with `camelCase` Java record components; do not apply a global Jackson naming strategy.
 - Keep controllers thin. Put business logic in services.
 - Use constructor injection. Do not use field `@Autowired`.
 - Use Java records for request/response contracts.

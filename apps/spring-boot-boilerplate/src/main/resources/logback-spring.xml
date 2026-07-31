@@ -9,7 +9,7 @@
     <springProfile name="!prod">
         <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
             <encoder>
-                <pattern>%d{yyyy-MM-dd'T'HH:mm:ss.SSSXXX} %highlight(%-5level) [%cyan(${APP_NAME})] [%yellow(%X{requestId:-})] [%X{traceId:-}] %X{httpMethod:-} %X{endpoint:-} --- %logger{36} : %msg%n</pattern>
+                <pattern>%d{yyyy-MM-dd'T'HH:mm:ss.SSSXXX} %highlight(%-5level) [%cyan(${APP_NAME})] [%yellow(%X{traceId:-})] %X{httpMethod:-} %X{endpoint:-} --- %logger{36} : %msg%n</pattern>
             </encoder>
         </appender>
 

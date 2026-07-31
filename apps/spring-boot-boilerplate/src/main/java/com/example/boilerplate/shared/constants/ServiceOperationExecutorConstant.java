@@ -3,7 +3,7 @@ package com.example.boilerplate.shared.constants;
 public final class ServiceOperationExecutorConstant {
 
     public static final String TRUNCATION_INDICATOR = "\n\n--- RESPONSE TRUNCATED (exceeded 10000 byte limit) ---";
-    public static final String MDC_REQUEST_ID_KEY = "requestId";
+    public static final String MDC_TRACE_ID_KEY = "traceId";
     public static final int MAX_RESPONSE_BODY_SIZE = 10_000;
     public static final String OPERATION_SUPPLIER_NOT_NULL = "Operation supplier must not be null";
     public static final String OPERATION_TYPE_NOT_NULL = "Operation type must not be null";
