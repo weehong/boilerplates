@@ -31,6 +31,8 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @Import(SecurityConfigurationTest.JsonContractController.class)
 class SecurityConfigurationTest {
 
+    private static final int HTTP_BAD_REQUEST = 400;
+
     private static final String ACTUATOR_HEALTH_ENDPOINT = "/actuator/health";
     private static final String ACTUATOR_LIVENESS_ENDPOINT = "/actuator/health/liveness";
     private static final String ACTUATOR_READINESS_ENDPOINT = "/actuator/health/readiness";
@@ -122,7 +124,7 @@ class SecurityConfigurationTest {
             .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_PROBLEM_JSON))
             .andExpect(jsonPath("$.type").value("about:blank"))
             .andExpect(jsonPath("$.title").value("Bad Request"))
-            .andExpect(jsonPath("$.status").value(400))
+            .andExpect(jsonPath("$.status").value(HTTP_BAD_REQUEST))
             .andExpect(jsonPath("$.detail").value("Failed to read request"))
             .andExpect(jsonPath("$.instance").value(JSON_CONTRACT_ENDPOINT))
             .andExpect(content().string(not(containsString("unexpectedField"))));

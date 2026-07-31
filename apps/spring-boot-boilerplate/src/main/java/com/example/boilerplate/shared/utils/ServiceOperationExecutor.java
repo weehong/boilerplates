@@ -88,6 +88,9 @@ import static java.util.UUID.randomUUID;
 
 public final class ServiceOperationExecutor {
 
+    private static final String UUID_SEPARATOR = "-";
+    private static final String EMPTY_STRING = "";
+
     private static final Logger LOGGER = LoggerFactory.getLogger(ServiceOperationExecutor.class);
 
     private ServiceOperationExecutor() {
@@ -208,7 +211,7 @@ public final class ServiceOperationExecutor {
             return new TraceContext(existingTraceId, false);
         }
 
-        String newTraceId = randomUUID().toString().replace("-", "");
+        String newTraceId = randomUUID().toString().replace(UUID_SEPARATOR, EMPTY_STRING);
         MDC.put(MDC_TRACE_ID_KEY, newTraceId);
 
         return new TraceContext(newTraceId, true);

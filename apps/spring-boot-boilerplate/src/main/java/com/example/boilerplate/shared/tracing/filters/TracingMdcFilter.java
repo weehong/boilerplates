@@ -2,6 +2,7 @@ package com.example.boilerplate.shared.tracing.filters;
 
 import io.micrometer.tracing.Span;
 import io.micrometer.tracing.Tracer;
+import org.springframework.beans.factory.ObjectProvider;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -22,10 +23,10 @@ public class TracingMdcFilter extends OncePerRequestFilter {
     public static final String MDC_SPAN_ID = "spanId";
     public static final String TRACE_ID_HEADER = "X-Trace-Id";
 
-    private final Tracer tracer;
+    private final ObjectProvider<Tracer> tracerProvider;
 
-    public TracingMdcFilter(Tracer tracer) {
-        this.tracer = tracer;
+    public TracingMdcFilter(ObjectProvider<Tracer> tracerProvider) {
+        this.tracerProvider = tracerProvider;
     }
 
     @Override
@@ -36,7 +37,8 @@ public class TracingMdcFilter extends OncePerRequestFilter {
         String previousSpanId = MDC.get(MDC_SPAN_ID);
 
         try {
-            Span currentSpan = tracer.currentSpan();
+            Tracer tracer = tracerProvider.getIfAvailable();
+            Span currentSpan = (tracer == null) ? null : tracer.currentSpan();
 
             if (currentSpan != null) {
                 String traceId = currentSpan.context().traceId();
