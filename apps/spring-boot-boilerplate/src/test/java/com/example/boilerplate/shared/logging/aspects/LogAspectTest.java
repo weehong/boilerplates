@@ -16,7 +16,6 @@ import org.slf4j.MDC;
 import org.springframework.web.bind.annotation.RestController;
 
 import static com.example.boilerplate.shared.logging.constants.AspectConstant.MDC_METHOD;
-import static com.example.boilerplate.shared.logging.constants.AspectConstant.MDC_REQUEST_ID;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.mockito.ArgumentMatchers.any;
@@ -67,7 +66,6 @@ class LogAspectTest {
 
         logAspect.logExecution(joinPoint);
 
-        assertThat(MDC.get(MDC_REQUEST_ID)).isNull();
         assertThat(MDC.get(MDC_METHOD)).isNull();
     }
 
@@ -127,7 +125,6 @@ class LogAspectTest {
         } catch (RuntimeException ignored) {
         }
 
-        assertThat(MDC.get(MDC_REQUEST_ID)).isNull();
         assertThat(MDC.get(MDC_METHOD)).isNull();
     }
 
@@ -153,21 +150,6 @@ class LogAspectTest {
         assertThatThrownBy(() -> logAspect.logExecution(joinPoint))
             .isInstanceOf(MethodExecutionException.class)
             .hasCause(checkedException);
-    }
-
-    @Test
-    void given_existingRequestId_when_logExecution_then_requestIdIsPreserved()
-        throws Throwable {
-        String existingRequestId = "EXISTING1";
-        MDC.put(MDC_REQUEST_ID, existingRequestId);
-        configureJoinPoint(ServiceClass.class);
-        when(joinPoint.proceed()).thenReturn(TEST_RESULT);
-        when(logAspectProperties.slowExecutionThresholdMs()).thenReturn(SLOW_THRESHOLD_MS);
-        configureMeterRegistry();
-
-        logAspect.logExecution(joinPoint);
-
-        assertThat(MDC.get(MDC_REQUEST_ID)).isEqualTo(existingRequestId);
     }
 
     @Test

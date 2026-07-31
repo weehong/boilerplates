@@ -15,11 +15,15 @@ import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import java.util.Arrays;
 import java.util.List;
 
+import static com.example.boilerplate.shared.tracing.filters.TracingMdcFilter.TRACE_ID_HEADER;
+
 @Configuration
 @EnableWebSecurity
 public class SecurityConfiguration {
 
-    private static final String ACTUATOR_PATTERN = "/actuator/**";
+    private static final String ACTUATOR_HEALTH_ENDPOINT = "/actuator/health";
+    private static final String ACTUATOR_LIVENESS_ENDPOINT = "/actuator/health/liveness";
+    private static final String ACTUATOR_READINESS_ENDPOINT = "/actuator/health/readiness";
     private static final String API_DOCS_PATTERN = "/v3/api-docs/**";
     private static final String SWAGGER_UI_PATTERN = "/swagger-ui/**";
     private static final String SWAGGER_HTML_PATTERN = "/swagger-ui.html";
@@ -29,7 +33,9 @@ public class SecurityConfiguration {
     private static final long MAX_AGE_SECONDS = 3600L;
 
     private static final String[] PUBLIC_ENDPOINTS = {
-        ACTUATOR_PATTERN,
+        ACTUATOR_HEALTH_ENDPOINT,
+        ACTUATOR_LIVENESS_ENDPOINT,
+        ACTUATOR_READINESS_ENDPOINT,
         API_DOCS_PATTERN,
         SWAGGER_UI_PATTERN,
         SWAGGER_HTML_PATTERN,
@@ -81,6 +87,7 @@ public class SecurityConfiguration {
                 .toList());
         configuration.setAllowedMethods(ALLOWED_METHODS);
         configuration.setAllowedHeaders(ALLOWED_HEADERS);
+        configuration.setExposedHeaders(List.of(TRACE_ID_HEADER));
         configuration.setAllowCredentials(true);
         configuration.setMaxAge(MAX_AGE_SECONDS);
 

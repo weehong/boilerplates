@@ -17,9 +17,9 @@ class ServiceOperationExecutorConstantTest {
     }
 
     @Test
-    void given_mdcRequestIdKey_when_accessed_then_returnsRequestId() {
-        assertThat(ServiceOperationExecutorConstant.MDC_REQUEST_ID_KEY)
-            .isEqualTo("requestId");
+    void given_mdcTraceIdKey_when_accessed_then_returnsTraceId() {
+        assertThat(ServiceOperationExecutorConstant.MDC_TRACE_ID_KEY)
+            .isEqualTo("traceId");
     }
 
     @Test

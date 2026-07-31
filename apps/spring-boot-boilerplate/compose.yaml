@@ -38,8 +38,9 @@ services:
       SWAGGER_ENABLED: ${SWAGGER_ENABLED:-false}
 
       # Observability
-      TRACING_ENABLED: ${TRACING_ENABLED:-false}
+      TRACING_EXPORT_ENABLED: ${TRACING_EXPORT_ENABLED:-false}
       TRACING_SAMPLING_PROBABILITY: ${TRACING_SAMPLING_PROBABILITY:-1.0}
+      OTEL_EXPORTER_OTLP_TRACES_ENDPOINT: ${OTEL_EXPORTER_OTLP_TRACES_ENDPOINT:-http://localhost:4318/v1/traces}
     depends_on:
       postgres:
         condition: service_healthy

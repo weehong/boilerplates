@@ -25,8 +25,9 @@ import org.springframework.web.client.ResourceAccessException;
 import org.springframework.web.client.RestClientException;
 
 import java.io.IOException;
+import java.util.concurrent.atomic.AtomicReference;
 
-import static com.example.boilerplate.shared.constants.ServiceOperationExecutorConstant.MDC_REQUEST_ID_KEY;
+import static com.example.boilerplate.shared.constants.ServiceOperationExecutorConstant.MDC_TRACE_ID_KEY;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
@@ -626,21 +627,27 @@ class ServiceOperationExecutorTest {
     }
 
     @Test
-    void given_noExistingTraceId_when_execute_then_cleanupCreatedMdcValue() {
-        MDC.remove(MDC_REQUEST_ID_KEY);
+    void given_noExistingTraceId_when_execute_then_generateW3cTraceIdAndCleanItUp() {
+        MDC.remove(MDC_TRACE_ID_KEY);
+        AtomicReference<String> generatedTraceId = new AtomicReference<>();
 
         ServiceOperationExecutor.execute(
-            () -> "ok",
+            () -> {
+                generatedTraceId.set(MDC.get(MDC_TRACE_ID_KEY));
+
+                return "ok";
+            },
             OperationStatus.RETRIEVE,
             FACTORY);
 
-        assertThat(MDC.get(MDC_REQUEST_ID_KEY)).isNull();
+        assertThat(generatedTraceId.get()).matches("[0-9a-f]{32}");
+        assertThat(MDC.get(MDC_TRACE_ID_KEY)).isNull();
     }
 
     @Test
     void given_existingTraceId_when_execute_then_preserveOriginalMdcValue() {
         String existingTraceId = "existing-trace-id";
-        MDC.put(MDC_REQUEST_ID_KEY, existingTraceId);
+        MDC.put(MDC_TRACE_ID_KEY, existingTraceId);
 
         try {
             ServiceOperationExecutor.execute(
@@ -648,10 +655,10 @@ class ServiceOperationExecutorTest {
                 OperationStatus.RETRIEVE,
                 FACTORY);
 
-            assertThat(MDC.get(MDC_REQUEST_ID_KEY))
+            assertThat(MDC.get(MDC_TRACE_ID_KEY))
                 .isEqualTo(existingTraceId);
         } finally {
-            MDC.remove(MDC_REQUEST_ID_KEY);
+            MDC.remove(MDC_TRACE_ID_KEY);
         }
     }
 

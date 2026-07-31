@@ -30,14 +30,11 @@ import static com.example.boilerplate.shared.logging.constants.AspectConstant.LO
 import static com.example.boilerplate.shared.logging.constants.AspectConstant.MDC_ENDPOINT;
 import static com.example.boilerplate.shared.logging.constants.AspectConstant.MDC_HTTP_METHOD;
 import static com.example.boilerplate.shared.logging.constants.AspectConstant.MDC_METHOD;
-import static com.example.boilerplate.shared.logging.constants.AspectConstant.MDC_REQUEST_ID;
 import static com.example.boilerplate.shared.logging.constants.AspectConstant.METRIC_NAME;
 import static com.example.boilerplate.shared.logging.constants.AspectConstant.METRIC_TAG_COMPONENT;
-import static com.example.boilerplate.shared.logging.constants.AspectConstant.REQUEST_ID_SEPARATOR;
 import static com.example.boilerplate.shared.logging.constants.AspectConstant.STATUS_FAILURE;
 import static com.example.boilerplate.shared.logging.constants.AspectConstant.STATUS_SUCCESS;
 import static com.example.boilerplate.shared.logging.constants.AspectConstant.STATUS_TAG;
-import static java.util.UUID.randomUUID;
 
 @Aspect
 @Component
@@ -46,8 +43,6 @@ import static java.util.UUID.randomUUID;
 public class LogAspect {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(LogAspect.class);
-    private static final int REQUEST_ID_LENGTH = 8;
-
     private final MeterRegistry meterRegistry;
     private final LogAspectProperties logAspectProperties;
 
@@ -70,11 +65,6 @@ public class LogAspect {
         long startTime = System.nanoTime();
         String method = joinPoint.getSignature().toShortString();
         String component = resolveComponent(joinPoint);
-        boolean isNewRequestId = MDC.get(MDC_REQUEST_ID) == null;
-
-        if (isNewRequestId) {
-            MDC.put(MDC_REQUEST_ID, initRequestId());
-        }
 
         MDC.put(MDC_METHOD, method);
 
@@ -109,10 +99,6 @@ public class LogAspect {
 
             throw new MethodExecutionException(method, durationMs, t);
         } finally {
-            if (isNewRequestId) {
-                MDC.remove(MDC_REQUEST_ID);
-            }
-
             MDC.remove(MDC_METHOD);
 
             if (hasHttpContext) {
@@ -120,10 +106,6 @@ public class LogAspect {
                 MDC.remove(MDC_ENDPOINT);
             }
         }
-    }
-
-    private String initRequestId() {
-        return randomUUID().toString().replace(REQUEST_ID_SEPARATOR, "").substring(0, REQUEST_ID_LENGTH).toUpperCase();
     }
 
     private HttpServletRequest currentHttpRequest() {
