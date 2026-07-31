@@ -22,3 +22,17 @@ This repository is a monorepo for reusable boilerplates.
 ```sh
 git remote add origin git@github.com:weehong/boilerplates.git
 ```
+
+## Agent skills
+
+### Issue tracker
+
+Issues live in Linear, driven through the GraphQL API with `curl`; no CLI or MCP server is wired up. Numbering is per team, so the target team is chosen by repo path — `apps/spring-boot-boilerplate` → `SBB`. See `docs/agents/issue-tracker.md`.
+
+### Triage labels
+
+The five canonical triage roles, each label string equal to its name. See `docs/agents/triage-labels.md`.
+
+### Domain docs
+
+Multi-context — a root `CONTEXT-MAP.md` pointing at one `CONTEXT.md` per boilerplate under `apps/`. See `docs/agents/domain.md`.
