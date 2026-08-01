@@ -1,0 +1,96 @@
+{
+  "sourceLanguage" : "en",
+  "strings" : {
+    "about.body" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "A reusable SwiftUI starting point: typed navigation, a testable Core package, and deterministic tests." } }
+      }
+    },
+    "about.title" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "SwiftUI Boilerplate" } }
+      }
+    },
+    "common.delete" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Delete" } }
+      }
+    },
+    "common.done" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Done" } }
+      }
+    },
+    "common.ok" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "OK" } }
+      }
+    },
+    "common.retry" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Retry" } }
+      }
+    },
+    "error.action.title" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Something Went Wrong" } }
+      }
+    },
+    "error.loading.title" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Couldn't Load" } }
+      }
+    },
+    "error.message.client" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "The request was rejected. Please try again." } }
+      }
+    },
+    "error.message.decoding" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "The server sent something unexpected." } }
+      }
+    },
+    "error.message.invalid_response" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "The server response was invalid." } }
+      }
+    },
+    "error.message.server" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "The server had a problem. Please try again later." } }
+      }
+    },
+    "error.message.transport" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Couldn't reach the server. Check your connection." } }
+      }
+    },
+    "post_detail.title" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Post" } }
+      }
+    },
+    "post_list.title" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Posts" } }
+      }
+    },
+    "welcome.body" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "This full-screen cover is presented through the Coordinator, just like every other destination." } }
+      }
+    },
+    "welcome.dismiss" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Get Started" } }
+      }
+    },
+    "welcome.title" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Welcome" } }
+      }
+    }
+  },
+  "version" : "1.0"
+}

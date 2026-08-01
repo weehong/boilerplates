@@ -1,0 +1,5 @@
+// Development environment. Note the $() trick: a literal `//` would start an
+// xcconfig comment, so the URL is written as `https:/$()/…`.
+APP_ENVIRONMENT = development
+API_BASE_URL = https:/$()/jsonplaceholder.typicode.com
+SWIFT_ACTIVE_COMPILATION_CONDITIONS = $(inherited) DEBUG

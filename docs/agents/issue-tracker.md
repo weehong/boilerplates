@@ -23,6 +23,7 @@ Issue numbering in Linear is **per team**, not per project — the identifier pr
 | Repo path | Linear team |
 | --- | --- |
 | `apps/spring-boot-boilerplate` | `SBB` — Spring Boot Boilerplate |
+| `apps/swiftui-boilerplate` | `SWB` — SwiftUI Boilerplate (repurposed from the empty default `VER` team on 2026-07-31; the workspace plan caps teams at two) |
 | anything else | no team yet — **ask the user** before creating one |
 
 `LINEAR_TEAM_KEY` overrides this table when set. If a boilerplate has no team listed, ask rather than defaulting into a catch-all team.

@@ -1,0 +1,55 @@
+name: SwiftUIBoilerplate
+options:
+  bundleIdPrefix: com.weehong
+  deploymentTarget:
+    iOS: "26.0"
+  createIntermediateGroups: true
+
+configs:
+  Debug: debug
+  Staging: release
+  Release: release
+
+configFiles:
+  Debug: Configs/Debug.xcconfig
+  Staging: Configs/Staging.xcconfig
+  Release: Configs/Release.xcconfig
+
+packages:
+  Core:
+    path: Core
+
+targets:
+  SwiftUIBoilerplate:
+    type: application
+    platform: iOS
+    sources:
+      - App
+      - Components
+      - DesignSystem
+      - Features
+      - Resources
+    dependencies:
+      - package: Core
+    settings:
+      base:
+        GENERATE_INFOPLIST_FILE: NO
+        INFOPLIST_FILE: Info.plist
+        SWIFT_VERSION: "6.0"
+        TARGETED_DEVICE_FAMILY: "1"
+        ASSETCATALOG_COMPILER_APPICON_NAME: AppIcon
+        ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME: AccentColor
+
+schemes:
+  SwiftUIBoilerplate:
+    build:
+      targets:
+        SwiftUIBoilerplate: all
+    run:
+      config: Debug
+  SwiftUIBoilerplate-Staging:
+    build:
+      targets:
+        SwiftUIBoilerplate: all
+    run:
+      config: Staging

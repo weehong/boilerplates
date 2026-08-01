@@ -9,6 +9,7 @@ This repository is a monorepo for reusable boilerplates.
 - `apps/express-api-boilerplate`: scaffolded fresh in-repo as a production Express 5 + TypeScript API (Prisma/PostgreSQL, pino, zod, OpenAPI)
 - `apps/dotnet-api-boilerplate`: adapted from `https://github.com/upmatches/api_v2/commit/7b18471d65c8526311a144a44cb4ab61d1eaab0b`
 - `apps/spring-boot-boilerplate`: adapted from the local `upmatches-dev/upmatches` Spring Boot project
+- `apps/swiftui-boilerplate`: authored in-repo as a modern iOS app template (SwiftUI, Swift Concurrency, Swift Testing); scaffold plan in `apps/swiftui-boilerplate/docs/scaffold-checklist.md`
 
 ## Maintenance Rules
 

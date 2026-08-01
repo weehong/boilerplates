@@ -11,6 +11,7 @@ Monorepo for reusable application boilerplates.
 | Express API Boilerplate | `apps/express-api-boilerplate` | Authored in-repo | Production Express 5 + TypeScript API with Prisma/PostgreSQL, pino, zod, OpenAPI/Swagger, Vitest + supertest, Playwright, and Docker. |
 | .NET API Boilerplate | `apps/dotnet-api-boilerplate` | <https://github.com/upmatches/api_v2/commit/7b18471d65c8526311a144a44cb4ab61d1eaab0b> | Lightweight .NET 10 Clean Architecture API with EF Core PostgreSQL, Result handling, OpenAPI, Docker, and tests. |
 | Spring Boot Boilerplate | `apps/spring-boot-boilerplate` | Local `upmatches-dev/upmatches` source | Spring Boot 4 API with Java 25, WebMVC, security, JPA/PostgreSQL, Flyway, Redis cache support, OpenAPI, Docker, and tests. |
+| SwiftUI Boilerplate | `apps/swiftui-boilerplate` | Authored in-repo | Modern iOS app template (iOS 26): SwiftUI, Swift Concurrency, `@Observable`, XcodeGen, Linux-testable SPM Core package, Swift Testing, zero third-party dependencies. |
 
 ## Working With A Boilerplate
 
@@ -46,6 +47,12 @@ cd apps/spring-boot-boilerplate
 ./mvnw spring-boot:run
 ```
 
+```sh
+cd apps/swiftui-boilerplate
+xcodegen generate          # Mac: creates SwiftUIBoilerplate.xcodeproj
+cd Core && swift test      # any platform: Core package test suite
+```
+
 ## Import History
 
 - `chore(monorepo): initialize repository` created the empty repository with the GitHub remote.
@@ -54,3 +61,4 @@ cd apps/spring-boot-boilerplate
 - `feat(express-api): add boilerplate` scaffolded a new production Express 5 + TypeScript API boilerplate in-repo.
 - `feat(dotnet-api): add boilerplate` imported and trimmed `upmatches/api_v2` commit `7b18471d65c8526311a144a44cb4ab61d1eaab0b`.
 - `feat(spring-boot): add boilerplate` imported and trimmed the local `upmatches-dev/upmatches` Spring Boot project.
+- `feat(swiftui): add boilerplate` scaffolded a new SwiftUI + Swift Testing iOS boilerplate in-repo (XcodeGen, Linux-testable Core package).
