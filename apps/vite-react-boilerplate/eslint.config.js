@@ -72,7 +72,8 @@ const typescriptConfig = {
     "@typescript-eslint/no-confusing-void-expression": "error",
     "@typescript-eslint/no-import-type-side-effects": "error",
     "@typescript-eslint/no-require-imports": "error",
-    "@typescript-eslint/no-unused-vars": "error",
+    // A leading underscore marks a parameter that is intentionally unused.
+    "@typescript-eslint/no-unused-vars": ["error", { argsIgnorePattern: "^_" }],
     "@typescript-eslint/no-useless-empty-export": "error",
     "@typescript-eslint/prefer-enum-initializers": "error",
     "@typescript-eslint/prefer-readonly": "error",
