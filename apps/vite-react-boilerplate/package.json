@@ -62,7 +62,7 @@
     "@headlessui/react": "^2.2.9",
     "@heroicons/react": "^2.2.0",
     "@hookform/devtools": "^4.4.0",
-    "@playwright/test": "^1.57.0",
+    "@playwright/test": "^1.65.1",
     "@storybook/addon-links": "^10.1.4",
     "@storybook/addon-themes": "^10.1.4",
     "@storybook/react-vite": "^10.1.4",
