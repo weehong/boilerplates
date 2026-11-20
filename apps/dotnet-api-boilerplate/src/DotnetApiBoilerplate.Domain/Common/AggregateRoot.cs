@@ -13,11 +13,14 @@ public abstract class AggregateRoot<TId> : Entity<TId>
     }
 }
 
-/// <summary>Convenience base for aggregate roots keyed by <see cref="Guid" />.</summary>
+/// <summary>
+///     Convenience base for aggregate roots keyed by <see cref="Guid" />.
+///     Rejects <see cref="Guid.Empty" />: an aggregate always has its identity from the start.
+/// </summary>
 public abstract class AggregateRoot : AggregateRoot<Guid>
 {
     protected AggregateRoot(Guid id)
-        : base(id)
+        : base(EntityId.EnsureNotEmpty(id))
     {
     }
 }

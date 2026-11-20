@@ -31,6 +31,10 @@ public sealed class AggregateRootTests
         new TestAggregate(id).ShouldBe(new TestAggregate(id));
     }
 
+    [Fact]
+    public void Constructor_WithEmptyGuid_ShouldThrow() =>
+        Should.Throw<ArgumentException>(() => new TestAggregate(Guid.Empty));
+
     private sealed record CreatedEvent(DateTimeOffset OccurredOnUtc) : IDomainEvent;
 
     private sealed class TestAggregate(Guid id) : AggregateRoot(id)

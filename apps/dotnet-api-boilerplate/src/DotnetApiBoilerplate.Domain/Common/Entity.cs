@@ -44,11 +44,14 @@ public abstract class Entity<TId> : IEquatable<Entity<TId>>, IHasDomainEvents
     public static bool operator !=(Entity<TId>? left, Entity<TId>? right) => !Equals(left, right);
 }
 
-/// <summary>Convenience base for the common case of a <see cref="Guid" /> identifier.</summary>
+/// <summary>
+///     Convenience base for the common case of a <see cref="Guid" /> identifier.
+///     Rejects <see cref="Guid.Empty" />: an entity always has its identity from the start.
+/// </summary>
 public abstract class Entity : Entity<Guid>
 {
     protected Entity(Guid id)
-        : base(id)
+        : base(EntityId.EnsureNotEmpty(id))
     {
     }
 }

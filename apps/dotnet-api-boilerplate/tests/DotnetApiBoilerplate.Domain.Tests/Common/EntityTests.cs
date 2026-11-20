@@ -49,6 +49,10 @@ public sealed class EntityTests
         (a != b).ShouldBeTrue();
     }
 
+    [Fact]
+    public void Constructor_WithEmptyGuid_ShouldThrow() =>
+        Should.Throw<ArgumentException>(() => new TestEntity(Guid.Empty));
+
     private sealed record TestEvent(DateTimeOffset OccurredOnUtc) : IDomainEvent;
 
     private sealed class TestEntity(Guid id) : Entity(id)
