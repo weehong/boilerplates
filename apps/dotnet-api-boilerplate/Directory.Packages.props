@@ -39,4 +39,13 @@
     <PackageVersion Include="Testcontainers.PostgreSql" Version="4.12.0" />
   </ItemGroup>
 
+  <!-- Security pins for transitive packages (pinned through CentralPackageTransitivePinningEnabled).
+       Remove a pin once the package that brings it in depends on the patched version itself. -->
+  <ItemGroup Label="Security pins">
+    <!-- Via Microsoft.AspNetCore.OpenApi. GHSA-v5pm-xwqc-g5wc, fixed in 2.7.5. -->
+    <PackageVersion Include="Microsoft.OpenApi" Version="2.7.5" />
+    <!-- Via Testcontainers. GHSA-mggc-4xg6-vcxf and GHSA-q939-rpr3-3284, fixed in 2026.0.0. -->
+    <PackageVersion Include="SSH.NET" Version="2026.0.0" />
+  </ItemGroup>
+
 </Project>
