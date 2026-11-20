@@ -1,0 +1,65 @@
+{
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "extends": ["config:recommended"],
+  "timezone": "Asia/Singapore",
+  "schedule": ["before 7am"],
+  "minimumReleaseAge": "3 days",
+  "internalChecksFilter": "strict",
+  "semanticCommits": "enabled",
+  "dependencyDashboard": true,
+  "osvVulnerabilityAlerts": true,
+  "vulnerabilityAlerts": {
+    "labels": ["security"]
+  },
+  "lockFileMaintenance": {
+    "enabled": true,
+    "automerge": true,
+    "schedule": ["before 7am on monday"]
+  },
+  "packageRules": [
+    {
+      "description": "Group each boilerplate's minor and patch updates into one PR and merge it when CI passes",
+      "matchFileNames": ["apps/dotnet-api-boilerplate/**"],
+      "matchUpdateTypes": ["minor", "patch", "pin", "digest"],
+      "groupName": "dotnet-api-boilerplate non-major",
+      "automerge": true
+    },
+    {
+      "matchFileNames": ["apps/spring-boot-boilerplate/**"],
+      "matchUpdateTypes": ["minor", "patch", "pin", "digest"],
+      "groupName": "spring-boot-boilerplate non-major",
+      "automerge": true
+    },
+    {
+      "matchFileNames": ["apps/express-api-boilerplate/**"],
+      "matchUpdateTypes": ["minor", "patch", "pin", "digest"],
+      "groupName": "express-api-boilerplate non-major",
+      "automerge": true
+    },
+    {
+      "matchFileNames": ["apps/nextjs-boilerplate/**"],
+      "matchUpdateTypes": ["minor", "patch", "pin", "digest"],
+      "groupName": "nextjs-boilerplate non-major",
+      "automerge": true
+    },
+    {
+      "matchFileNames": ["apps/vite-react-boilerplate/**"],
+      "matchUpdateTypes": ["minor", "patch", "pin", "digest"],
+      "groupName": "vite-react-boilerplate non-major",
+      "automerge": true
+    },
+    {
+      "description": "Root CI workflows: group action updates and merge them when CI passes",
+      "matchFileNames": [".github/workflows/**"],
+      "matchUpdateTypes": ["minor", "patch", "pin", "digest"],
+      "groupName": "root github-actions non-major",
+      "automerge": true
+    },
+    {
+      "description": "Major updates can break things: one PR each, never merged automatically",
+      "matchUpdateTypes": ["major"],
+      "automerge": false,
+      "labels": ["major-update"]
+    }
+  ]
+}

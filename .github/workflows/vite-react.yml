@@ -1,0 +1,68 @@
+name: vite-react-boilerplate
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "apps/vite-react-boilerplate/**"
+      - ".github/workflows/vite-react.yml"
+  pull_request:
+    paths:
+      - "apps/vite-react-boilerplate/**"
+      - ".github/workflows/vite-react.yml"
+  schedule:
+    - cron: "0 18 * * *" # every day, 02:00 Singapore time
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+defaults:
+  run:
+    working-directory: apps/vite-react-boilerplate
+
+jobs:
+  verify:
+    name: Lint, test, build
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    env:
+      HUSKY: "0"
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 10
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: pnpm
+          cache-dependency-path: apps/vite-react-boilerplate/pnpm-lock.yaml
+
+      - name: Install
+        run: pnpm install --frozen-lockfile
+
+      - name: Lint
+        run: pnpm lint
+
+      - name: Unit tests
+        run: pnpm exec vitest run src/ --passWithNoTests
+
+      # The build script runs tsc first, so this also type-checks.
+      - name: Build
+        run: pnpm build
+
+      - name: Install Playwright browsers
+        run: pnpm exec playwright install --with-deps
+
+      - name: End-to-end tests
+        run: pnpm test:e2e

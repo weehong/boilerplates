@@ -38,7 +38,8 @@ Then follow the boilerplate's own README. The Node.js boilerplates have a
 
 Git hooks (Husky) and the bundled GitHub Actions workflows (`.github/` in the
 .NET and Spring Boot boilerplates) only take effect when the boilerplate sits at
-the root of its own repository. Inside this monorepo they are inactive.
+the root of its own repository. Inside this monorepo they are inactive; the
+monorepo's own checks are described in [Keeping Boilerplates Current](#keeping-boilerplates-current).
 
 ## Run a Boilerplate in Place
 
@@ -111,6 +112,27 @@ overlap:
   Compose file with PostgreSQL (and Redis for Spring Boot).
 - **Reproducible.** The Node.js boilerplates include a `SCAFFOLD.md` prompt
   that lets an AI coding agent recreate the boilerplate from scratch.
+
+## Keeping Boilerplates Current
+
+The root of this repository keeps every boilerplate building and up to date:
+
+- **CI per boilerplate** (`.github/workflows/<name>.yml`). Runs when a pull
+  request or a push to `main` changes that boilerplate, and runs all five every
+  day at 02:00 Singapore time, so a boilerplate that breaks without any change
+  here (a new runtime, a yanked package) is caught the next morning.
+- **Renovate** (`renovate.json`). Checks every morning before 07:00 Singapore
+  time and only takes versions released at least 3 days ago. Minor and patch
+  updates are grouped into one pull request per boilerplate and merged
+  automatically when CI passes. Major updates get their own pull request,
+  labelled `major-update`, and are never merged automatically. Lockfiles are
+  refreshed every Monday, and known vulnerabilities get a pull request
+  immediately. The Dependency Dashboard issue lists everything still pending.
+- **Secret scan** (`.github/workflows/secret-scan.yml`). Gitleaks scans the
+  full history on every pull request, every push to `main`, and every day.
+
+Renovate needs the [Renovate GitHub App](https://github.com/apps/renovate)
+installed on this repository.
 
 ## Sources
 

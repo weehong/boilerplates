@@ -1,0 +1,53 @@
+name: dotnet-api-boilerplate
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "apps/dotnet-api-boilerplate/**"
+      - ".github/workflows/dotnet-api.yml"
+  pull_request:
+    paths:
+      - "apps/dotnet-api-boilerplate/**"
+      - ".github/workflows/dotnet-api.yml"
+  schedule:
+    - cron: "0 18 * * *" # every day, 02:00 Singapore time
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+defaults:
+  run:
+    working-directory: apps/dotnet-api-boilerplate
+
+jobs:
+  verify:
+    name: Format, build, test
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          global-json-file: apps/dotnet-api-boilerplate/global.json
+
+      - name: Restore
+        run: dotnet restore DotnetApiBoilerplate.slnx
+
+      - name: Format check
+        run: dotnet format DotnetApiBoilerplate.slnx --verify-no-changes --no-restore
+
+      - name: Build
+        run: dotnet build DotnetApiBoilerplate.slnx -c Release --no-restore
+
+      # Integration tests start PostgreSQL with Testcontainers; the runner has Docker.
+      - name: Test
+        run: dotnet test DotnetApiBoilerplate.slnx -c Release --no-build

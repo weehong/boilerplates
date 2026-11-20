@@ -1,0 +1,64 @@
+name: nextjs-boilerplate
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "apps/nextjs-boilerplate/**"
+      - ".github/workflows/nextjs.yml"
+  pull_request:
+    paths:
+      - "apps/nextjs-boilerplate/**"
+      - ".github/workflows/nextjs.yml"
+  schedule:
+    - cron: "0 18 * * *" # every day, 02:00 Singapore time
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+defaults:
+  run:
+    working-directory: apps/nextjs-boilerplate
+
+jobs:
+  verify:
+    name: Lint, test, build
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    env:
+      HUSKY: "0"
+      NEXT_TELEMETRY_DISABLED: "1"
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+          cache-dependency-path: apps/nextjs-boilerplate/package-lock.json
+
+      - name: Install
+        run: npm ci
+
+      - name: Lint
+        run: npm run lint
+
+      - name: Unit tests
+        run: npm run test:unit:run
+
+      # next build also type-checks the app.
+      - name: Build
+        run: npm run build
+
+      - name: Install Playwright browsers
+        run: npx playwright install --with-deps
+
+      - name: End-to-end tests
+        run: npm run test:e2e

@@ -1,0 +1,46 @@
+name: spring-boot-boilerplate
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "apps/spring-boot-boilerplate/**"
+      - ".github/workflows/spring-boot.yml"
+  pull_request:
+    paths:
+      - "apps/spring-boot-boilerplate/**"
+      - ".github/workflows/spring-boot.yml"
+  schedule:
+    - cron: "0 18 * * *" # every day, 02:00 Singapore time
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+defaults:
+  run:
+    working-directory: apps/spring-boot-boilerplate
+
+jobs:
+  verify:
+    name: Verify
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Java
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: "25"
+          cache: maven
+          cache-dependency-path: apps/spring-boot-boilerplate/pom.xml
+
+      - name: Verify
+        run: ./mvnw verify -B
