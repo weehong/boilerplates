@@ -2,7 +2,7 @@
 
 Lightweight .NET 10 backend API boilerplate built with Clean Architecture, CQRS, EF Core PostgreSQL, Result-based error handling, OpenAPI/Scalar, health checks, Docker, and focused tests.
 
-This template is domain-neutral. The sample controller only demonstrates routing and HTTP error mapping; replace it with your first feature.
+This template is domain-neutral: it contains no sample features. Start with your first real feature (see "Adding A Feature" in `CLAUDE.md`).
 
 ## Tech Stack
 
@@ -98,6 +98,7 @@ src/
 tests/
   DotnetApiBoilerplate.Domain.Tests
   DotnetApiBoilerplate.Application.Tests
+  DotnetApiBoilerplate.ArchitectureTests   # Fails the build when a layer breaks the dependency rules
   DotnetApiBoilerplate.Infrastructure.Tests
   DotnetApiBoilerplate.Api.Tests
   DotnetApiBoilerplate.IntegrationTests
@@ -112,7 +113,7 @@ Api -> Infrastructure -> Application -> Domain
 Api -> Application -> Domain
 ```
 
-- Domain contains framework-free entities, domain events, `Result`, and `Error`.
+- Domain contains framework-free entities, aggregate roots, domain events, repository ports, `Result`, and `Error`.
 - Application contains MediatR commands/queries, validation, behaviors, and ports.
 - Infrastructure implements persistence, time, repositories, unit of work, and in-process domain-event dispatch.
 - Api translates HTTP requests/responses and maps errors to RFC 7807 problem documents.
